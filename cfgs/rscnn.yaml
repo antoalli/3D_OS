@@ -1,0 +1,25 @@
+optimizer: {
+  type: adam,
+  skip_wd: [ ],
+  weight_decay: 0,
+  kwargs: {
+    lr: !!float 0.001,
+  }
+}
+
+scheduler: {
+  type: steplr,
+  kwargs: {
+    base_lr: !!float 0.001,
+    lr_decay: !!float 0.7,
+    decay_step: 21,
+    lr_clip: !!float 0.00001,
+  }
+}
+
+model: {
+  ENCO_NAME: rscnn_ssn,
+  dropout: !!float 0.5,
+  cla_input_dim: 1024,
+  act: relu
+}

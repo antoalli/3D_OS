@@ -1,0 +1,25 @@
+# for training subarcface in synth to real scenario
+optimizer: {
+  type: AdamW,
+  skip_wd: [ ],
+  weight_decay: 0.05,
+  kwargs: {
+    lr: 0.0005,
+  }
+}
+
+scheduler: {
+  type: CosLR,
+  kwargs: {
+    t_initial: 250,
+    cycle_limit: 1
+  }
+}
+
+model: {
+  ENCO_NAME: PCT,
+  emb_dims: 1024,
+  dropout: !!float 0.5,
+  cla_input_dim: 1024,
+  act: relu
+}

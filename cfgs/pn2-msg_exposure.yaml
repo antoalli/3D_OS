@@ -1,0 +1,24 @@
+optimizer: {
+  type: adam,
+  skip_wd: [ ],
+  weight_decay: !!float 1e-4,
+  kwargs: {
+    lr: !!float 0.00001,
+  }
+}
+
+scheduler: {
+  type: CosLR,
+  kwargs: {
+    t_initial: 100,
+    cycle_limit: 1,
+    lr_min: !!float 1e-6
+  }
+}
+
+model: {
+  ENCO_NAME: pn2-msg,
+  dropout: !!float 0.5,
+  cla_input_dim: 1024,
+  act: relu
+}

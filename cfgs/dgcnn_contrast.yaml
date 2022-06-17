@@ -1,0 +1,29 @@
+optimizer: {
+  type: sgd,
+  skip_wd: [ ],
+  weight_decay: !!float 1e-4,
+  kwargs: {
+    lr: !!float 0.05,
+    momentum: !!float 0.9
+  }
+}
+
+scheduler: {
+  type: CosLR,
+  kwargs: {
+    t_initial: 2000,
+    cycle_limit: 1,
+    warmup_t: 100,
+    warmup_lr_init: !!float 1e-5
+  }
+}
+
+model: {
+  ENCO_NAME: DGCNN,
+  emb_dims: 1024,
+  k: 20,
+  act: leakyrelu,
+  proj_input_dim: 2048,
+  proj_hidden_dim: 512,
+  proj_output_dim: 256,
+}

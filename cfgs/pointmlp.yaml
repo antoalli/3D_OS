@@ -1,0 +1,25 @@
+optimizer: {
+  type: sgd,
+  skip_wd: [ ],
+  weight_decay: !!float 2e-4,
+  kwargs: {
+    lr: !!float 0.1,
+    momentum: !!float 0.9
+  }
+}
+
+scheduler: {
+  type: CosLR,
+  kwargs: {
+    t_initial: 250,
+    cycle_limit: 1,
+    lr_min: !!float 1e-4
+  }
+}
+
+model: {
+  ENCO_NAME: PointMLP,
+  dropout: !!float 0.5,
+  cla_input_dim: 1024,
+  act: relu
+}

@@ -26,7 +26,7 @@ def add_base_args(parser):
     parser.add_argument("--apply_fix_cellphone", 
                         default="True", type=ast.literal_eval, help="Enable (default) or disable fix on cellphone class")
     parser.add_argument("--data_root",
-                        default="~/data", help="path to data directory")
+                        default="./3D_OS_release_data", help="path to datasets root dir - this folder contains all datasets")
     parser.add_argument("--checkpoints_dir",
                         type=str, default="outputs", help="root for exp files")
     parser.add_argument("--exp_name",

@@ -28,8 +28,24 @@ pip install "https://github.com/unlimblue/KNN_CUDA/releases/download/0.2/KNN_CUD
 ```
 
 ### Data
+Use the prepared script to download all datasets. 
 
-TODO
+```bash
+chmod +x download_data.sh
+./download_data.sh
+```
+
+A common root for all datasets will be created in project dir, by default named *3D_OS_release_data* .
+```
+3D_OS_release_data (root)
+├─ ModelNet40_corrupted
+├─ sncore_fps_4096
+├─ ScanObjectNN
+├─ modelnet40_normal_resampled
+```
+
+The absolute path to the datasets root must be passed as **--data_root** argument in all scripts.
+
 
 ## Run example
 
@@ -84,6 +100,6 @@ See [here](docs/paper_results_synth.md) for Synthetic Benchmark results replicat
 
 ## This repo is still under construction
 - [x] Upload Code
-- [ ] Upload Data
+- [x] Upload Data
 - [ ] Acknowledgements
 - [ ] Link to the arXiv and citation

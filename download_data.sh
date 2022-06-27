@@ -13,7 +13,7 @@ wget --no-check-certificate -O "${dir}/modelnet40_normal_resampled.zip" "https:/
 tar -xf "${dir}/3D_OS_release_data.tar" -C "$dir"
 # move modelnet zip to 3D_OS_release_data and extract
 mv "${dir}/modelnet40_normal_resampled.zip" "${dir}/3D_OS_release_data/"
-unzip "${dir}/3D_OS_release_data/modelnet40_normal_resampled.zip"
+unzip -d "${dir}/3D_OS_release_data/" "${dir}/3D_OS_release_data/modelnet40_normal_resampled.zip"
 
 # clean
 echo "Cleaning.."

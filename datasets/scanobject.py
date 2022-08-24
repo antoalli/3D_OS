@@ -60,6 +60,56 @@ sonn_ood_common = {
 }
 
 
+################################
+# for real -> real experiments #
+################################
+SR12 = {
+    4: 0,  # chair
+    8: 1,  # shelf
+    7: 2,  # door
+    12: 3,  # sink
+    13: 4,  # sofa
+    ######
+    10: 5,  # bed
+    14: 6,  # toilet
+    5: 7,  # desk
+    9: 7,  # table
+    6: 8,  # display
+}
+
+
+SR13 = {
+    4: 0,  # chair
+    8: 1,  # shelf
+    7: 2,  # door
+    12: 3,  # sink
+    13: 4,  # sofa
+    ######
+    0: 5,  # bag
+    1: 6,  # bin
+    2: 7,  # box
+    3: 8,  # cabinet
+    11: 9  # pillow
+}
+
+
+SR23 = {
+    10: 0,  # bed
+    14: 1,  # toilet
+    5: 2,  # desk
+    9: 2,  # table
+    6: 3,  # display
+    ######
+    0: 4,  # bag
+    1: 5,  # bin
+    2: 6,  # box
+    3: 7,  # cabinet
+    11: 8,  # pillow
+}
+
+################################
+
+
 def load_h5_data_label(h5_path):
     f = h5py.File(h5_path, 'r')
     curr_data = f['data'][:]

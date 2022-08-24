@@ -7,7 +7,7 @@ from datasets.sncore_splits import *
 from utils.utils import *
 from utils.dist import *
 from sklearn import metrics as skm
-from ood_metrics import calc_metrics
+from utils.ood_metrics import calc_metrics
 from tqdm import tqdm
 
 try:
@@ -18,12 +18,13 @@ except KeyError:
 
 
 def print_ood_output(res_tar1, res_tar2, res_big_tar):
-    auroc1, fpr1 = res_tar1['auroc'], res_tar1['fpr_at_95_tpr']
-    auroc2, fpr2 = res_tar2['auroc'], res_tar2['fpr_at_95_tpr']
-    auroc3, fpr3 = res_big_tar['auroc'], res_big_tar['fpr_at_95_tpr']
-    print(f"Auroc 1: {auroc1:.4f}, FPR 1: {fpr1:.4f}")
-    print(f"Auroc 2: {auroc2:.4f}, FPR 2: {fpr2:.4f}")
-    print(f"Auroc 3: {auroc3:.4f}, FPR 3: {fpr3:.4f}")
+    # invert aupr in and out as we use label 1 for ID data
+    auroc1, fpr1, auprin1, auprout1 = res_tar1['auroc'], res_tar1['fpr_at_95_tpr'], res_tar1['aupr_in'], res_tar1['aupr_out']
+    auroc2, fpr2, auprin2, auprout2 = res_tar2['auroc'], res_tar2['fpr_at_95_tpr'], res_tar2['aupr_in'], res_tar2['aupr_out']
+    auroc3, fpr3, auprin3, auprout3 = res_big_tar['auroc'], res_big_tar['fpr_at_95_tpr'], res_big_tar['aupr_in'], res_big_tar['aupr_out']
+    print(f"SRC->TAR1:      AUROC: {auroc1:.4f}, FPR95: {fpr1:.4f}, AUPR_IN: {auprin1:.4f}, AUPR_OUT: {auprout1:.4f}")
+    print(f"SRC->TAR2:      AUROC: {auroc2:.4f}, FPR95: {fpr2:.4f}, AUPR_IN: {auprin2:.4f}, AUPR_OUT: {auprout2:.4f}")
+    print(f"SRC->TAR1+TAR2: AUROC: {auroc3:.4f}, FPR95: {fpr3:.4f}, AUPR_IN: {auprin3:.4f}, AUPR_OUT: {auprout3:.4f}")
 
 
 def cos_sim(a, b, eps=1e-8):
@@ -478,12 +479,16 @@ def eval_ood_sncore(scores_list, preds_list=None, labels_list=None, src_label=1,
     big_tar_conf = np.concatenate([to_numpy(tar1_conf), to_numpy(tar2_conf)], axis=0)
     res_big_tar = get_ood_metrics(src_conf, big_tar_conf, src_label)
 
+    # N.B. get_ood_metrics reports inverted AUPR_IN and AUPR_OUT results
+    # as we use label 1 for IN-DISTRIBUTION and thus we consider it positive. 
+    # the ood_metrics library argue to use 
+
     if not silent:
         print_ood_output(res_tar1, res_tar2, res_big_tar)
         print(f"to spreadsheet: "
-              f"{res_tar1['auroc']},{res_tar1['fpr_at_95_tpr']},"
-              f"{res_tar2['auroc']},{res_tar2['fpr_at_95_tpr']},"
-              f"{res_big_tar['auroc']},{res_big_tar['fpr_at_95_tpr']}")
+              f"{res_tar1['auroc']},{res_tar1['fpr_at_95_tpr']},{res_tar1['aupr_in']},{res_tar1['aupr_out']},"
+              f"{res_tar2['auroc']},{res_tar2['fpr_at_95_tpr']},{res_tar2['aupr_in']},{res_tar2['aupr_out']},"
+              f"{res_big_tar['auroc']},{res_big_tar['fpr_at_95_tpr']},{res_big_tar['aupr_in']},{res_big_tar['aupr_out']}")
 
     return src_acc, src_bal_acc, res_tar1, res_tar2, res_big_tar
 

@@ -40,6 +40,8 @@ def get_args():
                         default=-1, type=float, help="gradient clipping")
     parser.add_argument("--num_points",
                         default=1024, type=int, help="number of points sampled for each object view")
+    parser.add_argument("--num_points_test",
+                        default=2048, type=int, help="number of points sampled for each SONN object - only for testing")
     parser.add_argument("--wandb_name", type=str, default=None)
     parser.add_argument("--wandb_group", type=str, default="md-2-sonn-augmCorr")
     parser.add_argument("--wandb_proj", type=str, default="benchmark-3d-ood-cla")
@@ -450,19 +452,19 @@ def eval_ood_md2sonn(opt, config):
 
     dataloader_config = {
         'batch_size': opt.batch_size, 'drop_last': False, 'shuffle': False,
-        'num_workers': opt.num_workers, 'sampler': None, 'worker_init_fn': init_np_seed
-    }
+        'num_workers': opt.num_workers, 'sampler': None, 'worker_init_fn': init_np_seed}
 
+    # whole evaluation is done on ScanObject RW data
     sonn_args = {
         'data_root': opt.data_root,
         'sonn_split': opt.sonn_split,
         'h5_file': opt.sonn_h5_name,
         'split': 'all',  # we use both training (unused) and test samples during evaluation
-        'num_points': 2048,  # we use all SONN points (2048) to avoid sampling randomicity
+        'num_points': opt.num_points_test,  # default: use all 2048 sonn points to avoid sampling randomicity
         'transforms': None  # no augmentation applied at inference time
     }
 
-    train_loader, test_loader = get_md_eval_loaders(opt)
+    train_loader, _ = get_md_eval_loaders(opt)
     if opt.src == 'SR1':
         print("Src is SR1\n")
         id_loader = DataLoader(ScanObject(class_choice="sonn_2_mdSet1", **sonn_args), **dataloader_config)
@@ -474,8 +476,8 @@ def eval_ood_md2sonn(opt, config):
     else:
         raise ValueError(f"OOD evaluation - wrong src: {opt.src}")
 
-    # second SONN ood set is common to both SR1 and SR2
-    # these are the samples from SONN categories with poor mapping to modelnet categories
+    # second SONN out-of-distribution set is common to both SR1 and SR2 sources
+    # these are the samples from SONN categories with poor mapping to ModelNet categories
     ood2_loader = DataLoader(ScanObject(class_choice="sonn_ood_common", **sonn_args), **dataloader_config)
 
     classes_dict = eval(opt.src)

@@ -1,3 +1,9 @@
+"""
+Src: https://github.com/tayden/ood-metrics
+Slightly modified version to fix a bug in ood-metrics < 0.3.0.
+
+"""
+
 from sklearn.metrics import roc_curve, auc, precision_recall_curve
 import numpy as np
 

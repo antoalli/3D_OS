@@ -1,7 +1,7 @@
-# Towards Open Set 3D Learning: A Benchmark on Object Point Clouds
+# Towards Open Set 3D Learning: Benchmarking and Understanding Semantic Novelty Detection on Pointclouds
+Official PyTorch implementation of ["Towards Open Set 3D Learning: Benchmarking and Understanding Semantic Novelty Detection on Pointclouds"](https://openreview.net/pdf?id=X2dHozbd1at) by Antonio Alliegro, Francesco Cappio Borlino and Tatiana Tommasi.
 
-Official PyTorch implementation of ["Towards Open Set 3D Learning: A Benchmark on Object Point Clouds"](https://arxiv.org/abs/2207.11554) by Antonio Alliegro, Francesco Cappio
-Borlino and Tatiana Tommasi. 
+**This work has been accepted to NeurIPS 2022 Datasets and Benchmarks Track.**
 
 > **Abstract:** *In the last years, there has been significant progress in the field of 3D learning on classification, detection and segmentation problems. The vast majority of the existing studies focus on canonical closed-set conditions, neglecting the intrinsic open nature of the real-world. This limits the abilities of autonomous systems involved in safety-critical applications that require managing novel and unknown signals. In this context exploiting 3D data can be a valuable asset since it conveys rich information about the geometry of sensed objects and scenes. This paper provides the first broad study on Open Set 3D learning. We introduce a novel testbed with settings of increasing difficulty in terms of category semantic shift and cover both in-domain (synthetic-to-synthetic) and cross-domain (synthetic-to-real) scenarios. Moreover, we investigate the related out-of-distribution and Open Set 2D literature to understand if and how their most recent approaches are effective on 3D data. Our extensive benchmark positions several algorithms in the same coherent picture, revealing their strengths and limitations. The results of our analysis may serve as a reliable foothold for future tailored Open Set 3D models.*
 
@@ -101,11 +101,13 @@ See [here](docs/paper_results_synth.md) for Synthetic Benchmark results replicat
 If you find our paper/code useful please consider citing our paper: 
 
 ```
-@article{alliegro3dos,
-  title={Towards Open Set 3D Learning: A Benchmark on Object Point Clouds},
-  author={Alliegro, Antonio and Cappio Borlino, Francesco and Tommasi, Tatiana},
-  journal={arXiv preprint arXiv:2207.11554},
-  year={2022}
+@inproceedings{
+alliegro2022towards,
+title={Towards Open Set 3D Learning: Benchmarking and Understanding Semantic Novelty Detection on Pointclouds},
+author={Antonio Alliegro and Francesco Cappio Borlino and Tatiana Tommasi},
+booktitle={Thirty-sixth Conference on Neural Information Processing Systems Datasets and Benchmarks Track},
+year={2022},
+url={https://openreview.net/forum?id=X2dHozbd1at}
 }
 ```
 

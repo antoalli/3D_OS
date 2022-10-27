@@ -37,7 +37,7 @@ printf "============\n"
 # md40 corruputed
 printf "============"
 echo "Downloading ModelNet40 with corruptions in $dir"
-md40_corruptions="https://www.dropbox.com/s/qta41f1wucyktzx/ModelNet40_corrupted.tar?dl=1"
+md40_corruptions="https://www.dropbox.com/s/28u4swbyyn3wflz/ModelNet40_corrupted.tar?dl=1"
 wget -O "${data_dir}/tmp_ModelNet40_corrupted.tar" "$md40_corruptions"  # download
 tar -xf "${data_dir}/tmp_ModelNet40_corrupted.tar" -C "$data_dir"  # extract
 rm "${data_dir}/tmp_ModelNet40_corrupted.tar" # clean
